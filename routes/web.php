@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GlossaryController;
 use App\Http\Controllers\OrganisationController;
@@ -43,11 +44,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Super-admin panel
     // ──────────────────────────────────────────
     Route::prefix('admin')->name('admin.')->group(function () {
+
+        // Admin Dashboard
+        Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+
+        // Organisations (CRUD)
         Route::resource('organisations', OrganisationController::class);
         Route::post(
             'organisations/{organisation}/regenerate-key',
             [OrganisationController::class, 'regenerateApiKey']
         )->name('organisations.regenerate-key');
+
+        // Users (CRUD)
+        Route::get('/users',                [AdminController::class, 'users'])->name('users.index');
+        Route::get('/users/create',         [AdminController::class, 'createUser'])->name('users.create');
+        Route::post('/users',               [AdminController::class, 'storeUser'])->name('users.store');
+        Route::get('/users/{user}/edit',    [AdminController::class, 'editUser'])->name('users.edit');
+        Route::patch('/users/{user}',       [AdminController::class, 'updateUser'])->name('users.update');
+        Route::delete('/users/{user}',      [AdminController::class, 'destroyUser'])->name('users.destroy');
     });
 });
 

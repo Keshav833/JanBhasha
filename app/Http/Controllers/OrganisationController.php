@@ -5,15 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreOrganisationRequest;
 use App\Models\Organisation;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class OrganisationController extends Controller
+class OrganisationController extends Controller implements HasMiddleware
 {
-    public function __construct()
+    public static function middleware(): array
     {
-        $this->middleware(function ($request, $next) {
-            abort_if(!$request->user()?->isSuperAdmin(), 403, 'Super admin access required.');
-            return $next($request);
-        });
+        return [
+            new Middleware(function ($request, $next) {
+                abort_if(!$request->user()?->isSuperAdmin(), 403, 'Super admin access required.');
+                return $next($request);
+            }),
+        ];
     }
 
     public function index()
@@ -43,6 +47,7 @@ class OrganisationController extends Controller
     public function show(Organisation $organisation)
     {
         $organisation->loadCount('users', 'translations', 'glossaries');
+        $organisation->load('users');
 
         $recentTranslations = $organisation->translations()
             ->with('user')

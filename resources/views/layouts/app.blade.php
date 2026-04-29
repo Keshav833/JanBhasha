@@ -96,9 +96,15 @@
 
             @auth
             @if(auth()->user()->isSuperAdmin())
-            <div class="pt-3 pb-1 px-4 text-xs text-blue-300 uppercase tracking-wide font-medium">Admin</div>
-            <a href="{{ route('admin.organisations.index') }}" class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
+            <div class="pt-3 pb-1 px-4 text-xs text-blue-300 uppercase tracking-wide font-medium">⚡ Admin</div>
+            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
+                <span class="text-lg">🎛️</span> Admin Dashboard
+            </a>
+            <a href="{{ route('admin.organisations.index') }}" class="nav-link {{ request()->routeIs('admin.organisations.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
                 <span class="text-lg">🏛️</span> Organisations
+            </a>
+            <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
+                <span class="text-lg">👥</span> Users
             </a>
             @endif
             @endauth

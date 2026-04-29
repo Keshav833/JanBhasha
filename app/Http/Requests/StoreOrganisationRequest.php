@@ -11,6 +11,14 @@ class StoreOrganisationRequest extends FormRequest
         return auth()->user()?->isSuperAdmin() ?? false;
     }
 
+    protected function prepareForValidation(): void
+    {
+        // Checkbox sends "1" or nothing — normalize to boolean
+        $this->merge([
+            'is_active' => $this->boolean('is_active'),
+        ]);
+    }
+
     public function rules(): array
     {
         return [
@@ -19,7 +27,7 @@ class StoreOrganisationRequest extends FormRequest
             'website'            => ['nullable', 'url', 'max:255'],
             'department'         => ['nullable', 'string', 'max:255'],
             'is_active'          => ['boolean'],
-            'monthly_char_limit' => ['nullable', 'integer', 'min:1000'],
+            'monthly_char_limit' => ['required', 'integer', 'min:1000'],
         ];
     }
 }
