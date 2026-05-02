@@ -1,39 +1,78 @@
-# JanBhasha
+# JanBhasha — जनभाषा
 ### *Bridging Government Communication, One Word at a Time*
 
-JanBhasha is an AI-powered English to Hindi translation tool built for Indian government organizations. It enables government websites to convert official content into Hindi, ensuring accessibility for all citizens.
+JanBhasha is an AI-powered **English → Hindi translation platform** built for Indian government organisations. It allows government departments to convert official content into Hindi at scale — via a web dashboard or a REST API — while respecting per-organisation monthly character quotas, maintaining a custom glossary, and logging every translation for audit purposes.
+
+---
+
+## ✨ Features
+
+| Feature | Details |
+|---|---|
+| 🌐 **Translation** | English → Hindi via Google Translate or LibreTranslate |
+| 📖 **Custom Glossary** | Per-organisation term overrides; protects domain-specific words from being mangled by the API |
+| 📊 **Monthly Quota** | Configurable character limit per organisation with live usage tracking |
+| 🗂️ **Translation History** | Full audit log with status (`pending` / `completed` / `failed`), character count, provider, and cache flag |
+| ⚡ **Result Caching** | Identical source texts are served from a 24-hour cache — no duplicate API calls |
+| 🔑 **REST API** | Organisation-scoped API key authentication (`X-API-Key` header) |
+| 🛡️ **Role-Based Access** | `super_admin`, `admin`, `translator` roles with middleware-level enforcement |
+| 🏢 **Multi-Tenancy** | Each organisation has its own users, glossary, translations, and API key |
+| 🔄 **API Key Rotation** | Super-admins can regenerate an organisation's API key at any time |
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Backend:** PHP 8.x / Laravel 11
-- **Frontend:** Blade Templates / TailwindCSS
-- **Translation API:** Google Translate API / LibreTranslate
-- **Database:** MySQL
-- **Auth:** Laravel Breeze
+| Layer | Technology |
+|---|---|
+| **Backend** | PHP 8.2 / Laravel 12 |
+| **Frontend** | Blade Templates + TailwindCSS v3 + Alpine.js |
+| **Translation Providers** | Google Translate API · LibreTranslate (self-hosted) |
+| **Database** | SQLite (dev) · MySQL / PostgreSQL (prod) |
+| **Authentication** | Laravel Breeze (session) + Laravel Sanctum (API tokens) |
+| **Build Tooling** | Vite + `@tailwindcss/vite` |
+| **Testing** | PHPUnit 11 |
 
 ---
 
 ## ⚙️ Installation
 
+### Prerequisites
+
+- PHP ≥ 8.2 with extensions: `mbstring`, `pdo`, `openssl`, `curl`
+- Composer
+- Node.js ≥ 18 + npm
+
+### Quick Start
+
 ```bash
-# Clone the repository
-git clone https://github.com/your-org/janbhasha.git
-cd janbhasha
+# 1. Clone the repository
+git clone https://github.com/rishabhtcodes/JanBhasha.git
+cd JanBhasha
 
-# Install dependencies
+# 2. One-command setup (install deps, copy .env, generate key, migrate, build assets)
+composer setup
+
+# 3. Start all dev services (server + queue + vite + log watcher)
+composer dev
+```
+
+> Visit **http://localhost:8000** in your browser.
+
+### Manual Setup
+
+```bash
 composer install
-npm install && npm run build
+npm install
 
-# Environment setup
 cp .env.example .env
 php artisan key:generate
 
-# Database setup
+# For SQLite (default)
+touch database/database.sqlite
 php artisan migrate
 
-# Start the server
+npm run build
 php artisan serve
 ```
 
@@ -41,48 +80,232 @@ php artisan serve
 
 ## 🔑 Environment Variables
 
-Add the following to your `.env` file:
+Copy `.env.example` and configure the following keys:
 
 ```env
 APP_NAME=JanBhasha
 APP_URL=http://localhost
 
-DB_DATABASE=janbhasha
-DB_USERNAME=root
-DB_PASSWORD=
+# Database (SQLite by default for development)
+DB_CONNECTION=sqlite
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_DATABASE=janbhasha
+# DB_USERNAME=root
+# DB_PASSWORD=
 
-TRANSLATION_API_KEY=your_api_key_here
+# Translation provider: "google" or "libre"
+TRANSLATION_PROVIDER=google
+TRANSLATION_API_KEY=your_google_translate_api_key_here
+
+# Required only when TRANSLATION_PROVIDER=libre
+TRANSLATION_LIBRE_URL=https://libretranslate.com
 ```
 
 ---
 
-## ✨ Features
+## 🗂️ Database Schema
 
-- 🌐 English → Hindi translation for official government content
-- 📋 Supports bulk text, notices, and policy documents
-- 🔒 Secure API access for government organizations
-- 📱 Mobile-friendly responsive UI
-- 📝 Translation history and logs
+```
+organisations      – government departments (name, slug, api_key, monthly_char_limit, is_active)
+users              – platform users; belongs to one organisation; role: super_admin | admin | translator
+translations       – every translation request (source, result, provider, status, characters, is_cached)
+glossaries         – per-org custom term overrides (source_term → target_term, case_sensitive)
+```
+
+> Soft-deletes are enabled on `organisations` and `translations`.
+
+---
+
+## 🌐 Web Routes
+
+All web routes require session authentication via Laravel Breeze.
+
+| Method | URI | Description |
+|---|---|---|
+| `GET` | `/dashboard` | User dashboard with translation stats |
+| `GET/POST` | `/translations` | List history & submit new translation |
+| `GET` | `/translations/{id}` | View a single translation result |
+| `DELETE` | `/translations/{id}` | Soft-delete a translation record |
+| `GET/POST` | `/glossary` | List & add glossary terms |
+| `GET/PUT/DELETE` | `/glossary/{id}` | Edit or remove a glossary term |
+| `GET` | `/profile` | Edit profile (Breeze) |
+| `GET` | `/admin` | Super-admin dashboard (super_admin only) |
+| `CRUD` | `/admin/organisations` | Manage organisations |
+| `POST` | `/admin/organisations/{org}/regenerate-key` | Rotate API key |
+| `CRUD` | `/admin/users` | Manage users |
+
+---
+
+## 🔌 REST API
+
+All API routes are prefixed with `/api/v1` and require an `X-API-Key` header matching an active organisation's API key.
+
+### Authentication
+
+```http
+X-API-Key: jb_<your-organisation-api-key>
+```
+
+### Endpoints
+
+#### `POST /api/v1/translate`
+
+Submit text for translation.
+
+**Request Body**
+```json
+{
+  "source_text": "The Ministry of Finance hereby announces...",
+  "source_label": "Budget Circular 2025",
+  "source_lang": "en",
+  "target_lang": "hi"
+}
+```
+
+**Response** `201 Created`
+```json
+{
+  "success": true,
+  "translation_id": 42,
+  "source_text": "The Ministry of Finance...",
+  "translated_text": "वित्त मंत्रालय एतद्द्वारा घोषणा करता है...",
+  "provider": "google",
+  "characters": 48,
+  "is_cached": false,
+  "created_at": "2025-04-25T10:30:00+05:30"
+}
+```
+
+---
+
+#### `GET /api/v1/history`
+
+Retrieve paginated translation history.
+
+**Query Parameters**
+| Param | Description |
+|---|---|
+| `status` | Filter by `completed`, `failed`, or `pending` |
+| `per_page` | Results per page (default: 20, max: 100) |
+
+---
+
+#### `GET /api/v1/usage`
+
+Check the organisation's monthly character quota.
+
+**Response** `200 OK`
+```json
+{
+  "success": true,
+  "organisation": "Ministry of Finance",
+  "monthly_quota": 500000,
+  "characters_used": 128430,
+  "characters_left": 371570,
+  "quota_percent": 25.69
+}
+```
+
+---
+
+## 🔒 Roles & Permissions
+
+| Role | Capabilities |
+|---|---|
+| `super_admin` | Full access — manage all organisations, users, and admin panel |
+| `admin` | Manage translations and glossary within their own organisation |
+| `translator` | Submit translations and view history within their organisation |
+
+> Users without an `organisation_id` are blocked from performing translations.
+
+---
+
+## 📖 Glossary System
+
+The glossary prevents the translation API from overriding domain-specific terms (e.g. government scheme names, official designations).
+
+**How it works:**
+1. Before calling the translation provider, `GlossaryService::tokenize()` replaces matched source terms with placeholder tokens like `[[JBTK_0]]`.
+2. The tokenized text is sent to the API.
+3. After translation, `GlossaryService::detokenize()` replaces the tokens back with the approved Hindi target terms.
+
+Each glossary entry supports **case-sensitive matching**.
 
 ---
 
 ## 📁 Project Structure
 
 ```
-janbhasha/
+JanBhasha/
 ├── app/
-│   ├── Http/Controllers/TranslatorController.php
-│   └── Services/TranslationService.php
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Api/TranslationController.php  ← REST API
+│   │   │   ├── AdminController.php            ← Super-admin panel
+│   │   │   ├── DashboardController.php
+│   │   │   ├── GlossaryController.php
+│   │   │   ├── OrganisationController.php
+│   │   │   ├── TranslationController.php      ← Web UI
+│   │   │   └── ProfileController.php
+│   │   ├── Middleware/
+│   │   │   └── AuthenticateApiKey.php         ← X-API-Key validation
+│   │   └── Requests/
+│   │       ├── StoreTranslationRequest.php
+│   │       ├── StoreOrganisationRequest.php
+│   │       └── StoreGlossaryRequest.php
+│   ├── Models/
+│   │   ├── User.php
+│   │   ├── Organisation.php
+│   │   ├── Translation.php
+│   │   └── Glossary.php
+│   └── Services/
+│       ├── TranslationService.php             ← Orchestrates quota, cache, glossary, provider
+│       ├── GlossaryService.php                ← Tokenise / detokenise
+│       └── Providers/
+│           ├── GoogleTranslateProvider.php
+│           └── LibreTranslateProvider.php
+├── database/
+│   └── migrations/
+│       ├── ..._create_organisations_table.php
+│       ├── ..._add_organisation_id_to_users_table.php
+│       ├── ..._create_translations_table.php
+│       └── ..._create_glossaries_table.php
 ├── resources/views/
-│   ├── layouts/app.blade.php
-│   └── translator/index.blade.php
-├── routes/web.php
-└── .env
+│   ├── admin/           ← Super-admin dashboard, organisations, users
+│   ├── translations/    ← Create, index, show
+│   ├── glossary/        ← Create, edit, index
+│   └── layouts/
+├── routes/
+│   ├── web.php          ← Authenticated web routes
+│   └── api.php          ← /api/v1 REST routes
+└── tests/
+    ├── Unit/GlossaryServiceTest.php
+    └── Feature/TranslationApiTest.php
 ```
+
+---
+
+## 🧪 Testing
+
+```bash
+# Run all tests
+composer test
+
+# Run only unit tests
+php artisan test --testsuite=Unit
+
+# Run only feature tests
+php artisan test --testsuite=Feature
+```
+
+Test coverage includes:
+- `GlossaryServiceTest` — tokenization, detokenization, case-sensitivity
+- `TranslationApiTest` — API key auth, quota enforcement, caching behaviour, history pagination
 
 ---
 
 ## 📄 License
 
-This project is developed for use by Indian Government Organizations.  
+This project is developed for use by Indian Government Organisations.  
 © 2025 JanBhasha. All rights reserved.
