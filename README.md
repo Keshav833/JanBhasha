@@ -9,7 +9,7 @@ JanBhasha is an AI-powered **English → Hindi translation platform** built for 
 
 | Feature | Details |
 |---|---|
-| 🌐 **Translation** | English → Hindi via Google Translate or LibreTranslate |
+| 🌐 **Translation** | English → Hindi via Google Translate, LibreTranslate, or Mock (dev) |
 | 📖 **Custom Glossary** | Per-organisation term overrides; protects domain-specific words from being mangled by the API |
 | 📊 **Monthly Quota** | Configurable character limit per organisation with live usage tracking |
 | 🗂️ **Translation History** | Full audit log with status (`pending` / `completed` / `failed`), character count, provider, and cache flag |
@@ -27,7 +27,7 @@ JanBhasha is an AI-powered **English → Hindi translation platform** built for 
 |---|---|
 | **Backend** | PHP 8.2 / Laravel 12 |
 | **Frontend** | Blade Templates + TailwindCSS v3 + Alpine.js |
-| **Translation Providers** | Google Translate API · LibreTranslate (self-hosted) |
+| **Translation Providers** | Google Translate API · LibreTranslate · Mock (for dev) |
 | **Database** | SQLite (dev) · MySQL / PostgreSQL (prod) |
 | **Authentication** | Laravel Breeze (session) + Laravel Sanctum (API tokens) |
 | **Build Tooling** | Vite + `@tailwindcss/vite` |
@@ -94,8 +94,8 @@ DB_CONNECTION=sqlite
 # DB_USERNAME=root
 # DB_PASSWORD=
 
-# Translation provider: "google" or "libre"
-TRANSLATION_PROVIDER=google
+# Translation provider: "google", "libre", or "mock" (for local testing)
+TRANSLATION_PROVIDER=mock
 TRANSLATION_API_KEY=your_google_translate_api_key_here
 
 # Required only when TRANSLATION_PROVIDER=libre

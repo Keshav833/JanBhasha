@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\TranslationService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class TranslationApiTest extends TestCase
@@ -32,7 +33,7 @@ class TranslationApiTest extends TestCase
         $this->apiKey = $this->org->api_key;
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_requests_without_api_key(): void
     {
         $response = $this->postJson('/api/v1/translate', [
@@ -43,7 +44,7 @@ class TranslationApiTest extends TestCase
             ->assertJsonFragment(['success' => false]);
     }
 
-    /** @test */
+    #[Test]
     public function it_rejects_requests_with_invalid_api_key(): void
     {
         $response = $this->postJson('/api/v1/translate', [
@@ -53,7 +54,7 @@ class TranslationApiTest extends TestCase
         $response->assertStatus(401);
     }
 
-    /** @test */
+    #[Test]
     public function it_validates_source_text_is_required(): void
     {
         $response = $this->postJson('/api/v1/translate', [], [
@@ -64,7 +65,7 @@ class TranslationApiTest extends TestCase
             ->assertJsonValidationErrors(['source_text']);
     }
 
-    /** @test */
+    #[Test]
     public function it_translates_text_successfully(): void
     {
         // Mock the service so we don't need a real API key
@@ -102,7 +103,7 @@ class TranslationApiTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_translation_history(): void
     {
         Translation::create([
@@ -130,7 +131,7 @@ class TranslationApiTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_returns_usage_stats(): void
     {
         $response = $this->getJson('/api/v1/usage', [
@@ -149,7 +150,7 @@ class TranslationApiTest extends TestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_does_not_expose_other_orgs_history(): void
     {
         $otherOrg = Organisation::create([
