@@ -39,6 +39,7 @@
         }
         .input-field:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,.15); }
         .input-field::placeholder { color: #475569; }
+        select.input-field option { background: #0f172a; color: #e2e8f0; }
         label { color: #94a3b8; font-size: .875rem; font-weight: 500; }
 
         .btn-primary {
