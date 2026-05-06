@@ -7,7 +7,7 @@ use App\Models\Translation;
 use App\Models\User;
 use App\Services\Providers\GoogleTranslateProvider;
 use App\Services\Providers\LibreTranslateProvider;
-use App\Services\Providers\MockTranslateProvider;
+use App\Services\Providers\FreeGoogleTranslateProvider;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use RuntimeException;
@@ -110,7 +110,7 @@ class TranslationService
         return match ($provider) {
             'google' => $this->googleProvider()->translate($text, $sourceLang, $targetLang),
             'libre'  => $this->libreProvider()->translate($text, $sourceLang, $targetLang),
-            'mock'   => $this->mockProvider()->translate($text, $sourceLang, $targetLang),
+            'mock'   => $this->freeGoogleProvider()->translate($text, $sourceLang, $targetLang),
             default  => throw new RuntimeException("Unknown translation provider: {$provider}"),
         };
     }
@@ -134,8 +134,8 @@ class TranslationService
         );
     }
 
-    private function mockProvider(): MockTranslateProvider
+    private function freeGoogleProvider(): FreeGoogleTranslateProvider
     {
-        return new MockTranslateProvider();
+        return new FreeGoogleTranslateProvider();
     }
 }
