@@ -13,10 +13,17 @@ use Illuminate\Support\Facades\Route;
 // ──────────────────────────────────────────
 
 Route::get('/', function () {
-    return auth()->check()
-        ? redirect()->route('dashboard')
-        : redirect()->route('login');
-});
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+    return view('welcome');
+})->name('home');
+
+// Tour complete
+Route::post('/tour/complete', function () {
+    auth()->user()->update(['tour_completed' => true]);
+    return response()->json(['ok' => true]);
+})->middleware('auth')->name('tour.complete');
 
 // ──────────────────────────────────────────
 // Authenticated routes (Breeze session auth)
