@@ -90,6 +90,27 @@
 
         /* ── Scrollbar ── */
         ::-webkit-scrollbar { width:5px; } ::-webkit-scrollbar-track { background:#0b1120; } ::-webkit-scrollbar-thumb { background:#1d4ed8; border-radius:99px; }
+
+        /* ── Light Mode Overrides ── */
+        body.light-mode { background: #f8fafc; color: #1e293b; }
+        body.light-mode header { background: rgba(248,250,252,0.95); border-bottom: 1px solid #e2e8f0; }
+        body.light-mode header h1 { color: #1e293b !important; }
+        body.light-mode .stat-card, body.light-mode .card { background: white; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        body.light-mode .sidebar { background: #f1f5f9; border-right: 1px solid #e2e8f0; }
+        body.light-mode .nav-link { color: #475569; }
+        body.light-mode .nav-link:hover { background: #e2e8f0; color: #1e293b; }
+        body.light-mode .nav-link.active { background: #dbeafe; color: #1d4ed8; }
+        body.light-mode .input-field { background: white; border-color: #cbd5e1; color: #1e293b; }
+        body.light-mode .input-field::placeholder { color: #94a3b8; }
+        body.light-mode .translation-box { background: #f8fafc; border-color: #cbd5e1; color: #1e293b; }
+        body.light-mode .text-white { color: #0f172a !important; }
+        body.light-mode .text-slate-200 { color: #1e293b !important; }
+        body.light-mode .text-slate-300 { color: #334155 !important; }
+        body.light-mode .text-slate-400 { color: #64748b !important; }
+        body.light-mode .text-slate-500 { color: #94a3b8 !important; }
+        body.light-mode .bg-blue-900\/20 { background: rgba(37,99,235,0.05); }
+        body.light-mode .border-blue-900\/30 { border-color: #e2e8f0; }
+        body.light-mode .sidebar .text-white { color: #0f172a !important; }
     </style>
 </head>
 <body class="h-full font-sans antialiased">
@@ -98,13 +119,13 @@
     {{-- ── Sidebar ────────────────────────────── --}}
     <aside class="sidebar w-60 flex-shrink-0 flex flex-col" id="sidebar">
         {{-- Logo --}}
-        <div class="px-5 py-5 flex items-center gap-3 border-b border-blue-900/30">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-lg shadow-lg">🇮🇳</div>
+        <a href="{{ route('dashboard') }}" class="px-5 py-5 flex items-center gap-3 border-b border-blue-900/30 hover:bg-white/5 transition-colors group">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-lg shadow-lg group-hover:scale-110 transition-transform">🇮🇳</div>
             <div>
                 <div class="font-bold text-white leading-tight">JanBhasha</div>
                 <div class="text-xs text-blue-400" style="font-family:'Noto Sans Devanagari',sans-serif;">जनभाषा</div>
             </div>
-        </div>
+        </a>
 
         {{-- Org badge --}}
         @auth
@@ -176,10 +197,15 @@
                 <h1 class="text-xl font-bold text-white">{{ $header ?? 'Dashboard' }}</h1>
                 <p class="text-xs text-slate-500 mt-0.5">{{ now()->format('l, d F Y') }}</p>
             </div>
-            <a href="{{ route('translations.create') }}" class="btn-primary text-sm" id="header-new-btn">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                New Translation
-            </a>
+            <div class="flex items-center gap-3">
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-blue-900/20 border border-blue-800/30 flex items-center justify-center hover:border-blue-500 transition-all group" title="Switch Mode">
+                    <span id="theme-icon" class="text-lg group-hover:scale-110 transition-transform">🌓</span>
+                </button>
+                <a href="{{ route('translations.create') }}" class="btn-primary text-sm" id="header-new-btn">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                    New Translation
+                </a>
+            </div>
         </header>
 
         {{-- Flash messages --}}
@@ -337,6 +363,28 @@ function completeTour() {
 }
 
 if (document.getElementById('tour-overlay')) renderTour();
+
+// ── Theme System ──
+function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    const isLight = body.classList.toggle('light-mode');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    if (icon) icon.textContent = isLight ? '☀️' : '🌓';
+}
+
+// Initialize Theme
+(function() {
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+        // Icon update is handled after DOM load in the toggle button itself if needed,
+        // but since it's hardcoded to 🌓, we'll fix it on load.
+        document.addEventListener('DOMContentLoaded', () => {
+            const icon = document.getElementById('theme-icon');
+            if (icon) icon.textContent = '☀️';
+        });
+    }
+})();
 </script>
 </body>
 </html>

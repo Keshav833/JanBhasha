@@ -88,6 +88,16 @@
         .orbit-item { animation: orbit 8s linear infinite; position: absolute; }
         .orbit-item:nth-child(2) { animation-delay: -2.67s; }
         .orbit-item:nth-child(3) { animation-delay: -5.33s; }
+        /* ── Light Mode Overrides ── */
+        body.light-mode { background: #f8fafc; color: #1e293b; }
+        body.light-mode .hero-bg { background: #f8fafc; }
+        body.light-mode .glass { background: white; border-color: #e2e8f0; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        body.light-mode .text-white { color: #0f172a !important; }
+        body.light-mode .text-slate-200 { color: #1e293b !important; }
+        body.light-mode .text-slate-300 { color: #334155 !important; }
+        body.light-mode .text-slate-400 { color: #475569 !important; }
+        body.light-mode .text-slate-500 { color: #64748b !important; }
+        body.light-mode .gradient-text { background: linear-gradient(135deg, #1d4ed8, #0f172a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
 <body class="hero-bg">
@@ -99,14 +109,17 @@
     <!-- ── Navbar ── -->
     <nav class="fixed top-3 left-0 right-0 z-40 px-6">
         <div class="max-w-7xl mx-auto glass rounded-2xl px-6 py-3.5 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-lg shadow-lg">🇮🇳</div>
+            <a href="{{ auth()->check() ? route('dashboard') : '/' }}" class="flex items-center gap-3 group">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-lg shadow-lg group-hover:scale-110 transition-transform">🇮🇳</div>
                 <div>
                     <span class="font-bold text-white">JanBhasha</span>
                     <span class="text-blue-400 text-xs ml-2 hidden sm:inline" style="font-family:'Noto Sans Devanagari',sans-serif;">जनभाषा</span>
                 </div>
-            </div>
+            </a>
             <div class="flex items-center gap-3">
+                <button onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-blue-500 transition-all group" title="Switch Mode">
+                    <span id="theme-icon" class="text-lg group-hover:scale-110 transition-transform">🌓</span>
+                </button>
                 <a href="{{ route('login') }}" class="btn-outline text-sm py-2 px-5">Sign In</a>
                 <a href="{{ route('register') }}" class="btn-primary text-sm py-2 px-5">Get Started</a>
             </div>
@@ -228,5 +241,24 @@
             <a href="{{ route('register') }}" class="text-slate-500 hover:text-blue-400 text-sm transition-colors">Register</a>
         </div>
     </footer>
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            const isLight = body.classList.toggle('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            if (icon) icon.textContent = isLight ? '☀️' : '🌓';
+        }
+
+        (function() {
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-mode');
+                document.addEventListener('DOMContentLoaded', () => {
+                    const icon = document.getElementById('theme-icon');
+                    if (icon) icon.textContent = '☀️';
+                });
+            }
+        })();
+    </script>
 </body>
 </html>

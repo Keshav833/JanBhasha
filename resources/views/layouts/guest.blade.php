@@ -63,6 +63,15 @@
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: #020817; }
         ::-webkit-scrollbar-thumb { background: #1d4ed8; border-radius: 99px; }
+        /* ── Light Mode Overrides ── */
+        body.light-mode { background: #f8fafc; color: #1e293b; }
+        body.light-mode .hero-glow { background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(37,99,235,0.1) 0%, transparent 70%); }
+        body.light-mode .glass-card { background: white; border-color: #e2e8f0; box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
+        body.light-mode .input-field { background: white; border-color: #cbd5e1; color: #1e293b; }
+        body.light-mode .input-field::placeholder { color: #94a3b8; }
+        body.light-mode .text-slate-500 { color: #64748b !important; }
+        body.light-mode .text-slate-600 { color: #94a3b8 !important; }
+        body.light-mode .gradient-text { background: linear-gradient(135deg, #1d4ed8, #0f172a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -70,11 +79,14 @@
     <div class="hero-glow fixed inset-0 pointer-events-none"></div>
     <div class="tricolor fixed top-0 left-0 right-0 z-50"></div>
 
-    <!-- Back to home -->
-    <div class="fixed top-5 left-6 z-40">
-        <a href="{{ route('home') }}" class="flex items-center gap-2 text-slate-500 hover:text-blue-400 text-sm transition-colors">
+    <!-- Top Bar -->
+    <div class="fixed top-5 left-6 right-6 z-40 flex items-center justify-between">
+        <a href="{{ url('/') }}" class="flex items-center gap-2 text-slate-500 hover:text-blue-400 text-sm transition-colors">
             ← Home
         </a>
+        <button onclick="toggleTheme()" class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:border-blue-500 transition-all group" title="Switch Mode">
+            <span id="theme-icon" class="text-lg group-hover:scale-110 transition-transform">🌓</span>
+        </button>
     </div>
 
     <div class="flex-1 flex items-center justify-center px-4 py-16 relative z-10">
@@ -82,9 +94,9 @@
 
             {{-- Logo --}}
             <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 overflow-hidden shadow-lg shadow-blue-900/50 border border-blue-800/30">
+                <a href="{{ url('/') }}" class="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 overflow-hidden shadow-lg shadow-blue-900/50 border border-blue-800/30 hover:scale-105 transition-transform group">
                     <img src="/favicon.png" alt="JanBhasha" class="w-full h-full object-cover">
-                </div>
+                </a>
                 <h1 class="text-3xl font-extrabold gradient-text tracking-tight">JanBhasha</h1>
                 <p class="text-slate-500 mt-1 text-sm" style="font-family:'Noto Sans Devanagari',sans-serif;">जनभाषा — सरकारी अनुवाद पोर्टल</p>
             </div>
@@ -101,5 +113,24 @@
     </div>
 
     <div class="tricolor fixed bottom-0 left-0 right-0 z-50"></div>
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            const isLight = body.classList.toggle('light-mode');
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            if (icon) icon.textContent = isLight ? '☀️' : '🌓';
+        }
+
+        (function() {
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light-mode');
+                document.addEventListener('DOMContentLoaded', () => {
+                    const icon = document.getElementById('theme-icon');
+                    if (icon) icon.textContent = '☀️';
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
