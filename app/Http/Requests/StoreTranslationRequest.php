@@ -16,8 +16,8 @@ class StoreTranslationRequest extends FormRequest
         return [
             'source_text'  => ['required', 'string', 'min:1', 'max:50000'],
             'source_label' => ['nullable', 'string', 'max:255'],
-            'source_lang'  => ['nullable', 'string', 'size:2'],
-            'target_lang'  => ['nullable', 'string', 'size:2'],
+            'source_lang'  => ['required', 'string', 'in:' . implode(',', array_keys(\App\Services\TranslationService::INDIAN_LANGUAGES))],
+            'target_lang'  => ['required', 'string', 'in:' . implode(',', array_keys(\App\Services\TranslationService::INDIAN_LANGUAGES))],
         ];
     }
 
