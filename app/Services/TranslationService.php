@@ -14,13 +14,47 @@ use RuntimeException;
 
 class TranslationService
 {
+    public const INDIAN_LANGUAGES = [
+        'hi'  => 'Hindi (हिन्दी)',
+        'bn'  => 'Bengali (বাংলা)',
+        'te'  => 'Telugu (తెలుగు)',
+        'mr'  => 'Marathi (मराठी)',
+        'ta'  => 'Tamil (தமிழ்)',
+        'ur'  => 'Urdu (اردو)',
+        'gu'  => 'Gujarati (ગુજરાતી)',
+        'kn'  => 'Kannada (ಕನ್ನಡ)',
+        'ml'  => 'Malayalam (മലയാളം)',
+        'or'  => 'Odia (ଓଡ଼ିଆ)',
+        'pa'  => 'Punjabi (ਪੰਜਾਬੀ)',
+        'as'  => 'Assamese (অসমীয়া)',
+        'mai' => 'Maithili (मैथिली)',
+        'sa'  => 'Sanskrit (संस्कृतम्)',
+        'kok' => 'Konkani (कोंकणी)',
+        'sd'  => 'Sindhi (سنڌي)',
+        'ne'  => 'Nepali (नेपाली)',
+        'brx' => 'Bodo (बड़ो)',
+        'doi' => 'Dogri (डोगरी)',
+        'ks'  => 'Kashmiri (کأशुर)',
+        'mni' => 'Manipuri (মণিপুরী)',
+        'sat' => 'Santhali (संताली)',
+        'en'  => 'English',
+    ];
+
     public function __construct(
         private readonly GlossaryService $glossaryService,
     ) {}
 
     /**
-     * Translate text from English to Hindi for the given organisation.
-     * Results are cached for 24 hours based on the source text hash.
+     * Get the full name of a language code.
+     */
+    public static function getLanguageName(string $code): string
+    {
+        return self::INDIAN_LANGUAGES[$code] ?? strtoupper($code);
+    }
+
+    /**
+     * Translate text between supported languages for the given organisation.
+     * Results are cached for 24 hours based on the source text and language pair hash.
      */
     public function translate(
         string $text,
