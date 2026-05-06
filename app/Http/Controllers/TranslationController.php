@@ -59,8 +59,8 @@ class TranslationController extends Controller
                 text:       $request->validated('source_text'),
                 org:        $org,
                 user:       $user,
-                sourceLang: $request->input('source_lang', 'en'),
-                targetLang: $request->input('target_lang', 'hi'),
+                sourceLang: $request->validated('source_lang'),
+                targetLang: $request->validated('target_lang'),
                 label:      $request->validated('source_label'),
             );
 
