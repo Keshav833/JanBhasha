@@ -46,6 +46,7 @@
         .input-field::placeholder { color: #64748b; }
         textarea.input-field { resize: vertical; min-height: 140px; font-family: inherit; }
         select.input-field { cursor: pointer; }
+        select.input-field option { background: #0f172a; color: #e2e8f0; }
 
         /* ── Badges ── */
         .badge { display:inline-flex; align-items:center; padding:.2rem .65rem; border-radius:99px; font-size:.75rem; font-weight:600; }
