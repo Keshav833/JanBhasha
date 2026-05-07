@@ -4,7 +4,7 @@
     <div class="max-w-xl fade-in">
         <div class="card p-8">
             <div class="flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-xl">📖</div>
+                <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-xl text-blue-600"><i class="fas fa-book"></i></div>
                 <div>
                     <h2 class="font-bold text-gray-900">New Glossary Term</h2>
                     <p class="text-sm text-gray-500">This term will be preserved during all translations for your org</p>

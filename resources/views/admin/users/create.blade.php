@@ -89,7 +89,7 @@
 
                 <div class="flex items-center gap-3 pt-2 border-t border-gray-100">
                     <button type="submit" class="btn-primary text-sm inline-flex items-center gap-2">
-                        👤 Create User
+                        <i class="fas fa-user"></i> Create User
                     </button>
                     <a href="{{ route('admin.users.index') }}" class="btn-secondary text-sm">Cancel</a>
                 </div>

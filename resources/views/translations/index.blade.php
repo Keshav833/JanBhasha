@@ -8,9 +8,9 @@
                    class="input-field flex-1 min-w-[200px]" style="max-width:320px;">
             <select name="status" class="input-field" style="max-width:160px;">
                 <option value="">All Statuses</option>
-                <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>✅ Completed</option>
-                <option value="failed"    {{ request('status') === 'failed'    ? 'selected' : '' }}>❌ Failed</option>
-                <option value="pending"   {{ request('status') === 'pending'   ? 'selected' : '' }}>⏳ Pending</option>
+                <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}><i class="fas fa-check-circle"></i> Completed</option>
+                <option value="failed"    {{ request('status') === 'failed'    ? 'selected' : '' }}><i class="fas fa-times-circle"></i> Failed</option>
+                <option value="pending"   {{ request('status') === 'pending'   ? 'selected' : '' }}><i class="fas fa-clock"></i> Pending</option>
             </select>
             <button type="submit" class="btn-primary text-sm">Filter</button>
             @if(request()->hasAny(['search','status']))
@@ -22,7 +22,7 @@
         <div class="card overflow-hidden">
             @if($translations->isEmpty())
             <div class="px-6 py-16 text-center">
-                <div class="text-5xl mb-3">📭</div>
+                <div class="text-5xl mb-3 text-gray-400"><i class="fas fa-inbox"></i></div>
                 <p class="text-gray-500">No translations found.</p>
                 <a href="{{ route('translations.create') }}" class="mt-4 inline-block btn-primary text-sm">Start translating →</a>
             </div>
@@ -59,7 +59,7 @@
                                     {{ ucfirst($t->status) }}
                                 </span>
                                 @if($t->is_cached)
-                                <span class="badge ml-1" style="background:#e0e7ff;color:#4338ca;">⚡</span>
+                                <span class="badge ml-1" style="background:#e0e7ff;color:#4338ca;"><i class="fas fa-bolt"></i></span>
                                 @endif
                             </td>
                             <td class="px-6 py-4 text-gray-400 whitespace-nowrap">{{ $t->created_at->format('d M Y') }}</td>

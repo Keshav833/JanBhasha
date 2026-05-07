@@ -7,6 +7,7 @@
     <title>{{ config('app.name', 'JanBhasha') }} — Government Translation Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -62,7 +63,7 @@
     <aside class="sidebar w-64 flex-shrink-0 flex flex-col text-white">
         {{-- Logo --}}
         <div class="px-6 py-5 flex items-center gap-3 border-b border-white/10">
-            <div class="ashoka-wheel bg-saffron-500">🇮🇳</div>
+            <div class="ashoka-wheel bg-saffron-500"><i class="fas fa-globe"></i></div>
             <div>
                 <div class="font-bold text-lg leading-tight">JanBhasha</div>
                 <div class="text-xs text-blue-200">जनभाषा — Govt. Portal</div>
@@ -82,29 +83,29 @@
         {{-- Nav --}}
         <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
             <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <span class="text-lg">🏠</span> Dashboard
+                <i class="fas fa-home"></i> Dashboard
             </a>
             <a href="{{ route('translations.create') }}" class="nav-link {{ request()->routeIs('translations.create') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <span class="text-lg">✍️</span> Translate
+                <i class="fas fa-pen"></i> Translate
             </a>
             <a href="{{ route('translations.index') }}" class="nav-link {{ request()->routeIs('translations.index') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <span class="text-lg">📋</span> History
+                <i class="fas fa-clipboard"></i> History
             </a>
             <a href="{{ route('glossary.index') }}" class="nav-link {{ request()->routeIs('glossary.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <span class="text-lg">📖</span> Glossary
+                <i class="fas fa-book"></i> Glossary
             </a>
 
             @auth
             @if(auth()->user()->isSuperAdmin())
-            <div class="pt-3 pb-1 px-4 text-xs text-blue-300 uppercase tracking-wide font-medium">⚡ Admin</div>
+            <div class="pt-3 pb-1 px-4 text-xs text-blue-300 uppercase tracking-wide font-medium"><i class="fas fa-bolt"></i> Admin</div>
             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <span class="text-lg">🎛️</span> Admin Dashboard
+                <i class="fas fa-sliders-h"></i> Admin Dashboard
             </a>
             <a href="{{ route('admin.organisations.index') }}" class="nav-link {{ request()->routeIs('admin.organisations.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <span class="text-lg">🏛️</span> Organisations
+                <i class="fas fa-building"></i> Organisations
             </a>
             <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <span class="text-lg">👥</span> Users
+                <i class="fas fa-users"></i> Users
             </a>
             @endif
             @endauth
@@ -150,12 +151,12 @@
         <div class="px-8 pt-4">
             @if(session('success'))
             <div class="flash-success mb-0 flex items-center gap-2 fade-in">
-                <span>✅</span> {{ session('success') }}
+                <i class="fas fa-check-circle"></i> {{ session('success') }}
             </div>
             @endif
             @if(session('error'))
             <div class="flash-error mb-0 flex items-center gap-2 fade-in">
-                <span>❌</span> {{ session('error') }}
+                <i class="fas fa-times-circle"></i> {{ session('error') }}
             </div>
             @endif
         </div>

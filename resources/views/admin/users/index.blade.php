@@ -34,7 +34,7 @@
         <div class="card overflow-hidden">
             @if($users->isEmpty())
             <div class="px-6 py-16 text-center">
-                <div class="text-5xl mb-3">👥</div>
+                <div class="text-5xl mb-3 text-gray-400"><i class="fas fa-users"></i></div>
                 <p class="text-gray-500">No users found.</p>
                 <a href="{{ route('admin.users.create') }}" class="mt-4 inline-block btn-primary text-sm">Create First User →</a>
             </div>

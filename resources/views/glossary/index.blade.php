@@ -14,7 +14,7 @@
         <div class="card overflow-hidden">
             @if($glossaries->isEmpty())
             <div class="px-6 py-16 text-center">
-                <div class="text-5xl mb-3">📖</div>
+                <div class="text-5xl mb-3 text-gray-400"><i class="fas fa-book"></i></div>
                 <p class="text-gray-500 text-sm">No glossary terms yet.</p>
                 <p class="text-gray-400 text-xs mt-1">Add terms like "Ministry → मंत्रालय" to preserve them during translation.</p>
                 <a href="{{ route('glossary.create') }}" class="mt-4 inline-block btn-primary text-sm">Add First Term →</a>

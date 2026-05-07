@@ -84,7 +84,7 @@
                           onsubmit="return confirm('Delete {{ $user->name }}? This cannot be undone.')"
                           class="ml-auto">
                         @csrf @method('DELETE')
-                        <button type="submit" class="btn-secondary text-sm text-red-500 hover:border-red-400">🗑️ Delete User</button>
+                        <button type="submit" class="btn-secondary text-sm text-red-500 hover:border-red-400"><i class="fas fa-trash"></i> Delete User</button>
                     </form>
                     @endif
                 </div>

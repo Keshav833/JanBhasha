@@ -42,7 +42,7 @@
             </div>
             @if($organisations->isEmpty())
             <div class="px-6 py-16 text-center">
-                <div class="text-5xl mb-3">🏛️</div>
+                <div class="text-5xl mb-3 text-gray-400"><i class="fas fa-building"></i></div>
                 <p class="text-gray-500">No organisations yet.</p>
                 <a href="{{ route('admin.organisations.create') }}" class="mt-4 inline-block btn-primary text-sm">Create First Organisation →</a>
             </div>

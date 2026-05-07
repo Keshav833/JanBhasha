@@ -8,17 +8,17 @@
             </a>
             <div class="flex gap-2">
                 @if(!$organisation->trashed())
-                <a href="{{ route('admin.organisations.edit', $organisation) }}" class="btn-secondary text-sm">✏️ Edit</a>
+                <a href="{{ route('admin.organisations.edit', $organisation) }}" class="btn-secondary text-sm"><i class="fas fa-edit"></i> Edit</a>
                 <form method="POST" action="{{ route('admin.organisations.regenerate-key', $organisation) }}">
                     @csrf
                     <button type="submit" onclick="return confirm('Regenerate API key? The old key will stop working immediately.')"
                             class="btn-secondary text-sm text-amber-600 hover:border-amber-400">
-                        🔑 Regenerate Key
+                        <i class="fas fa-key"></i> Regenerate Key
                     </button>
                 </form>
                 <form method="POST" action="{{ route('admin.organisations.destroy', $organisation) }}" onsubmit="return confirm('Deactivate this organisation?')">
                     @csrf @method('DELETE')
-                    <button type="submit" class="btn-secondary text-sm text-red-500 hover:border-red-400">🗑️ Deactivate</button>
+                    <button type="submit" class="btn-secondary text-sm text-red-500 hover:border-red-400"><i class="fas fa-trash"></i> Deactivate</button>
                 </form>
                 @endif
             </div>
@@ -76,19 +76,19 @@
 
         {{-- API Key --}}
         <div class="card p-6">
-            <h3 class="font-semibold text-gray-800 mb-4 flex items-center gap-2">🔑 API Key</h3>
+            <h3 class="font-semibold text-gray-800 mb-4 flex items-center gap-2"><i class="fas fa-key"></i> API Key</h3>
             <div class="flex items-center gap-3">
                 <code id="api-key-display" class="flex-1 bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm font-mono text-gray-700 truncate">
                     {{ $organisation->api_key }}
                 </code>
-                <button onclick="copyApiKey()" class="btn-secondary text-sm flex-shrink-0">📋 Copy</button>
+                <button onclick="copyApiKey()" class="btn-secondary text-sm flex-shrink-0"><i class="fas fa-copy"></i> Copy</button>
             </div>
             <p class="text-xs text-gray-400 mt-3">Send this key as the <code class="bg-gray-100 px-1 rounded">X-API-Key</code> header in API requests. Keep it confidential.</p>
         </div>
 
         {{-- Quota --}}
         <div class="card p-6">
-            <h3 class="font-semibold text-gray-800 mb-4">📊 Monthly Quota</h3>
+            <h3 class="font-semibold text-gray-800 mb-4"><i class="fas fa-chart-pie"></i> Monthly Quota</h3>
             @php
                 $used = $organisation->monthlyCharactersUsed();
                 $limit = $organisation->monthly_char_limit;
@@ -178,8 +178,8 @@
             const key = document.getElementById('api-key-display').innerText.trim();
             navigator.clipboard.writeText(key).then(() => {
                 const btn = document.querySelector('[onclick="copyApiKey()"]');
-                btn.textContent = '✅ Copied!';
-                setTimeout(() => btn.textContent = '📋 Copy', 2000);
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => btn.innerHTML = '<i class="fas fa-copy"></i> Copy', 2000);
             });
         }
     </script>

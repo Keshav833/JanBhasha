@@ -11,7 +11,7 @@
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-8 fade-in">
         <div class="stat-card p-5">
             <div class="flex items-start justify-between mb-3">
-                <div class="text-2xl">📝</div>
+                <div class="text-2xl text-blue-600"><i class="fas fa-file-alt"></i></div>
                 <span class="badge badge-success">All time</span>
             </div>
             <div class="text-3xl font-extrabold text-gray-900">{{ number_format($stats['total_translations']) }}</div>
@@ -20,7 +20,7 @@
 
         <div class="stat-card p-5">
             <div class="flex items-start justify-between mb-3">
-                <div class="text-2xl">✅</div>
+                <div class="text-2xl text-green-600"><i class="fas fa-check-circle"></i></div>
                 <span class="badge badge-success">Completed</span>
             </div>
             <div class="text-3xl font-extrabold text-gray-900">{{ number_format($stats['completed']) }}</div>
@@ -29,7 +29,7 @@
 
         <div class="stat-card p-5">
             <div class="flex items-start justify-between mb-3">
-                <div class="text-2xl">⚡</div>
+                <div class="text-2xl text-amber-600"><i class="fas fa-bolt"></i></div>
                 <span class="badge badge-warning">Cached</span>
             </div>
             <div class="text-3xl font-extrabold text-gray-900">{{ number_format($stats['cached_translations']) }}</div>
@@ -38,7 +38,7 @@
 
         <div class="stat-card p-5">
             <div class="flex items-start justify-between mb-3">
-                <div class="text-2xl">❌</div>
+                <div class="text-2xl text-red-600"><i class="fas fa-times-circle"></i></div>
                 <span class="badge badge-error">Failed</span>
             </div>
             <div class="text-3xl font-extrabold text-gray-900">{{ number_format($stats['failed']) }}</div>
@@ -68,10 +68,10 @@
                 <h3 class="text-xl font-bold mb-1">Translate Government Content</h3>
                 <p class="text-blue-200 text-sm mb-4">Convert official English documents, notices, and policies into Hindi instantly.</p>
                 <a href="{{ route('translations.create') }}" class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-400 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors">
-                    ✍️ Start Translating →
+                    <i class="fas fa-pen"></i> Start Translating →
                 </a>
             </div>
-            <div class="pr-8 text-7xl opacity-20 hidden lg:block">🇮🇳</div>
+            <div class="pr-8 text-7xl opacity-20 hidden lg:block"><i class="fas fa-globe"></i></div>
         </div>
     </div>
 
@@ -83,7 +83,7 @@
         </div>
         @if($recentActivity->isEmpty())
         <div class="px-6 py-12 text-center">
-            <div class="text-4xl mb-3">📭</div>
+            <div class="text-4xl mb-3 text-gray-400"><i class="fas fa-inbox"></i></div>
             <p class="text-gray-500 text-sm">No translations yet.</p>
             <a href="{{ route('translations.create') }}" class="mt-3 inline-block text-sm text-blue-600 hover:underline">Create your first translation →</a>
         </div>

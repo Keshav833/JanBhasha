@@ -26,7 +26,7 @@
 
             {{-- Logo / branding --}}
             <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-700 text-white text-3xl shadow-lg mb-4">🇮🇳</div>
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-700 text-white text-3xl shadow-lg mb-4"><i class="fas fa-globe"></i></div>
                 <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">JanBhasha</h1>
                 <p class="text-gray-500 mt-1 text-sm font-medium" style="font-family:'Noto Sans Devanagari',sans-serif;">जनभाषा — सरकारी अनुवाद पोर्टल</p>
                 <p class="text-gray-400 text-xs mt-1">Government Translation Portal</p>

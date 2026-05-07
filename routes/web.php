@@ -33,6 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Translations
+    
     Route::resource('translations', TranslationController::class)
         ->only(['index', 'create', 'store', 'show', 'destroy']);
 

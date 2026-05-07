@@ -6,7 +6,7 @@
         {{-- Status banner --}}
         @if($translation->status === 'failed')
         <div class="flash-error flex items-center gap-3">
-            <span class="text-xl">❌</span>
+            <span class="text-xl text-red-600"><i class="fas fa-times-circle"></i></span>
             <div>
                 <div class="font-semibold">Translation Failed</div>
                 <div class="text-sm mt-0.5">{{ $translation->error_message }}</div>
@@ -27,7 +27,7 @@
                         {{ ucfirst($translation->status) }}
                     </span>
                     @if($translation->is_cached)
-                    <span class="badge" style="background:#e0e7ff;color:#4338ca;">⚡ Cached</span>
+                    <span class="badge" style="background:#e0e7ff;color:#4338ca;"><i class="fas fa-bolt"></i> Cached</span>
                     @endif
                 </div>
                 <div class="flex items-center gap-2">
@@ -45,7 +45,7 @@
                 {{-- Source --}}
                 <div>
                     <div class="flex items-center gap-2 mb-3">
-                        <span class="text-lg">🇬🇧</span>
+                        <span class="text-lg text-blue-600"><i class="fas fa-language"></i></span>
                         <h3 class="text-sm font-semibold text-gray-700">English Source</h3>
                         <span class="ml-auto text-xs text-gray-400">{{ number_format($translation->characters) }} chars</span>
                     </div>
@@ -57,9 +57,9 @@
                 {{-- Translation --}}
                 <div>
                     <div class="flex items-center gap-2 mb-3">
-                        <span class="text-lg">🇮🇳</span>
+                        <span class="text-lg text-orange-600"><i class="fas fa-globe"></i></span>
                         <h3 class="text-sm font-semibold text-gray-700">Hindi Translation</h3>
-                        <button onclick="copyHindi()" class="ml-auto text-xs text-blue-600 hover:underline">📋 Copy</button>
+                        <button onclick="copyHindi()" class="ml-auto text-xs text-blue-600 hover:underline"><i class="fas fa-copy"></i> Copy</button>
                     </div>
                     <div id="hindi-output" class="translation-box min-h-[140px]">
                         @if($translation->translated_text)
@@ -88,7 +88,7 @@
         {{-- Actions --}}
         <div class="flex gap-3">
             <a href="{{ route('translations.create') }}" class="btn-primary text-sm inline-flex items-center gap-2">
-                ✍️ New Translation
+                <i class="fas fa-pen"></i> New Translation
             </a>
             <a href="{{ route('translations.index') }}" class="btn-secondary text-sm">
                 ← View History
@@ -101,8 +101,8 @@
             const text = document.getElementById('hindi-output').innerText.trim();
             navigator.clipboard.writeText(text).then(() => {
                 const btn = document.querySelector('[onclick="copyHindi()"]');
-                btn.textContent = '✅ Copied!';
-                setTimeout(() => btn.textContent = '📋 Copy', 2000);
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                setTimeout(() => btn.innerHTML = '<i class="fas fa-copy"></i> Copy', 2000);
             });
         }
     </script>
