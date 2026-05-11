@@ -98,6 +98,8 @@
         body.light-mode .text-slate-400 { color: #475569 !important; }
         body.light-mode .text-slate-500 { color: #64748b !important; }
         body.light-mode .gradient-text { background: linear-gradient(135deg, #1d4ed8, #0f172a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        body.light-mode .text-blue-400 { color: #1d4ed8 !important; }
+        .logo-icon { color: white !important; }
     </style>
 </head>
 <body class="hero-bg">
@@ -110,7 +112,7 @@
     <nav class="fixed top-3 left-0 right-0 z-40 px-6">
         <div class="max-w-7xl mx-auto glass rounded-2xl px-6 py-3.5 flex items-center justify-between">
             <a href="{{ auth()->check() ? route('dashboard') : '/' }}" class="flex items-center gap-3 group">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-lg shadow-lg group-hover:scale-110 transition-transform">🇮🇳</div>
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-lg shadow-lg group-hover:scale-110 transition-transform logo-icon">🇮🇳</div>
                 <div>
                     <span class="font-bold text-white">JanBhasha</span>
                     <span class="text-blue-400 text-xs ml-2 hidden sm:inline" style="font-family:'Noto Sans Devanagari',sans-serif;">जनभाषा</span>
