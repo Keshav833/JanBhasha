@@ -70,8 +70,10 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 text-slate-500 whitespace-nowrap">{{ $t->created_at->format('d M Y') }}</td>
-                            <td class="px-6 py-4">
-                                <a href="{{ route('translations.show', $t) }}" class="text-blue-600 hover:text-blue-800 font-medium">View →</a>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <a href="{{ route('translations.show', $t) }}" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center whitespace-nowrap">
+                                    View <span class="ml-1">→</span>
+                                </a>
                             </td>
                         </tr>
                         @endforeach
