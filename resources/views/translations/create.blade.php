@@ -15,7 +15,7 @@
                 @csrf
 
                 <div>
-                    <label for="source_label" class="block text-sm font-medium text-slate-300 mb-1.5">
+                    <label for="source_label" class="block text-sm font-medium text-white mb-1.5">
                         Document Label <span class="text-slate-500 font-normal">(optional)</span>
                     </label>
                     <input type="text" id="source_label" name="source_label" value="{{ old('source_label') }}"
@@ -25,7 +25,7 @@
 
                 <div class="flex flex-col sm:flex-row items-center gap-4">
                     <div class="flex-1 w-full">
-                        <label for="source_lang" class="block text-sm font-medium text-slate-300 mb-1.5">Translate From</label>
+                        <label for="source_lang" class="block text-sm font-medium text-white mb-1.5">Translate From</label>
                         <select name="source_lang" id="source_lang" class="input-field">
                             @foreach(\App\Services\TranslationService::INDIAN_LANGUAGES as $code => $name)
                                 <option value="{{ $code }}" {{ old('source_lang', 'en') == $code ? 'selected' : '' }}>
@@ -43,7 +43,7 @@
                     </button>
 
                     <div class="flex-1 w-full">
-                        <label for="target_lang" class="block text-sm font-medium text-slate-300 mb-1.5">Translate To</label>
+                        <label for="target_lang" class="block text-sm font-medium text-white mb-1.5">Translate To</label>
                         <select name="target_lang" id="target_lang" class="input-field">
                             @foreach(\App\Services\TranslationService::INDIAN_LANGUAGES as $code => $name)
                                 <option value="{{ $code }}" {{ old('target_lang', 'hi') == $code ? 'selected' : '' }}>
@@ -56,7 +56,7 @@
                 </div>
 
                 <div>
-                    <label for="source_text" class="block text-sm font-medium text-slate-300 mb-1.5">
+                    <label for="source_text" class="block text-sm font-medium text-white mb-1.5">
                         Source Text <span class="text-red-500">*</span>
                     </label>
                     <textarea id="source_text" name="source_text" rows="8"

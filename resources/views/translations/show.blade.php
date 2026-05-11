@@ -71,7 +71,7 @@
 
             {{-- Footer meta --}}
             <div class="px-6 py-3 border-t border-white/10 bg-white/2 flex items-center gap-4 text-xs text-slate-500">
-                <span>Provider: <strong class="text-slate-300">
+                <span>Provider: <strong class="text-slate-400">
                     @if($translation->provider === 'mock')
                         Google AI (Free)
                     @elseif($translation->provider === 'google')
@@ -83,12 +83,12 @@
                     @endif
                 </strong></span>
                 <span>·</span>
-                <span>Source: <strong class="text-gray-600">{{ \App\Services\TranslationService::getLanguageName($translation->source_lang) }}</strong></span>
+                <span>Source: <strong class="text-slate-400">{{ \App\Services\TranslationService::getLanguageName($translation->source_lang) }}</strong></span>
                 <span>→</span>
-                <span>Target: <strong class="text-gray-600">{{ \App\Services\TranslationService::getLanguageName($translation->target_lang) }}</strong></span>
+                <span>Target: <strong class="text-slate-400">{{ \App\Services\TranslationService::getLanguageName($translation->target_lang) }}</strong></span>
                 @if($translation->user)
                 <span>·</span>
-                <span>By: <strong class="text-gray-600">{{ $translation->user->name }}</strong></span>
+                <span>By: <strong class="text-slate-400">{{ $translation->user->name }}</strong></span>
                 @endif
             </div>
         </div>

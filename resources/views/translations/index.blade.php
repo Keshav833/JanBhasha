@@ -31,23 +31,23 @@
                 <table class="w-full text-sm">
                     <thead>
                         <tr class="border-b border-white/5 bg-white/5">
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-300 uppercase tracking-wide">Label / Source</th>
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-300 uppercase tracking-wide">Languages</th>
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-300 uppercase tracking-wide">Preview</th>
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-300 uppercase tracking-wide">Chars</th>
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-300 uppercase tracking-wide">Status</th>
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-300 uppercase tracking-wide">Date</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Label / Source</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Languages</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Preview</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Chars</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Status</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Date</th>
                             <th class="px-6 py-3"></th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-50">
+                    <tbody class="divide-y divide-white/5">
                         @foreach($translations as $t)
                         <tr class="table-row">
                             <td class="px-6 py-4">
                                 @if($t->source_label)
-                                <div class="text-xs font-semibold text-blue-600 mb-0.5">{{ $t->source_label }}</div>
+                                <div class="text-xs font-bold text-blue-600 mb-0.5">{{ $t->source_label }}</div>
                                 @endif
-                                <a href="{{ route('translations.show', $t) }}" class="text-slate-200 hover:text-blue-600 transition-colors">
+                                <a href="{{ route('translations.show', $t) }}" class="text-white font-semibold hover:text-blue-500 transition-colors">
                                     {{ Str::limit($t->source_text, 55) }}
                                 </a>
                             </td>
@@ -57,10 +57,10 @@
                                     <span class="text-blue-500 font-medium">To: {{ \App\Services\TranslationService::getLanguageName($t->target_lang) }}</span>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 text-slate-300">
-                                {{ $t->translated_text ? Str::limit($t->translated_text, 40) : '—' }}
+                            <td class="px-6 py-4 text-slate-300 font-medium" style="font-family:'Noto Sans Devanagari',sans-serif;">
+                                {{ $t->translated_text ? Str::limit($t->translated_text, 45) : '—' }}
                             </td>
-                            <td class="px-6 py-4 text-slate-300">{{ number_format($t->characters) }}</td>
+                            <td class="px-6 py-4 text-slate-400 font-medium">{{ number_format($t->characters) }}</td>
                             <td class="px-6 py-4">
                                 <span class="badge badge-{{ $t->status === 'completed' ? 'success' : ($t->status === 'failed' ? 'error' : 'warning') }}">
                                     {{ ucfirst($t->status) }}

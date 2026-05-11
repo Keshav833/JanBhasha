@@ -69,8 +69,8 @@
         body.light-mode .glass-card { background: white; border-color: #e2e8f0; box-shadow: 0 8px 32px rgba(0,0,0,0.05); }
         body.light-mode .input-field { background: white; border-color: #cbd5e1; color: #1e293b; }
         body.light-mode .input-field::placeholder { color: #94a3b8; }
-        body.light-mode .text-slate-500 { color: #64748b !important; }
-        body.light-mode .text-slate-600 { color: #94a3b8 !important; }
+        body.light-mode .text-slate-500 { color: #475569 !important; }
+        body.light-mode .text-slate-600 { color: #64748b !important; }
         body.light-mode .gradient-text { background: linear-gradient(135deg, #1d4ed8, #0f172a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>

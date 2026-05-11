@@ -103,14 +103,31 @@
         body.light-mode .input-field { background: white; border-color: #cbd5e1; color: #1e293b; }
         body.light-mode .input-field::placeholder { color: #94a3b8; }
         body.light-mode .translation-box { background: #f8fafc; border-color: #cbd5e1; color: #1e293b; }
-        body.light-mode .text-white { color: #0f172a !important; }
-        body.light-mode .text-slate-200 { color: #1e293b !important; }
-        body.light-mode .text-slate-300 { color: #334155 !important; }
-        body.light-mode .text-slate-400 { color: #64748b !important; }
-        body.light-mode .text-slate-500 { color: #94a3b8 !important; }
+        body.light-mode .text-white,
+        body.light-mode .text-slate-50,
+        body.light-mode .text-slate-100,
+        body.light-mode .text-slate-200,
+        body.light-mode .text-slate-300 { color: #0f172a !important; }
+        
+        body.light-mode .text-slate-400 { color: #475569 !important; }
+        body.light-mode .text-slate-500 { color: #64748b !important; }
+        body.light-mode .text-slate-600 { color: #334155 !important; }
+        
+        body.light-mode .text-gray-400,
+        body.light-mode .text-gray-500,
+        body.light-mode .text-gray-600 { color: #475569 !important; }
+        
+        body.light-mode .text-gray-700,
+        body.light-mode .text-gray-800,
+        body.light-mode .text-gray-900 { color: #0f172a !important; }
+        body.light-mode .badge-success { color: #065f46 !important; background: #d1fae5 !important; border-color: #a7f3d0 !important; }
+        body.light-mode .badge-error { color: #991b1b !important; background: #fee2e2 !important; border-color: #fecaca !important; }
+        body.light-mode .badge-warning { color: #92400e !important; background: #fef3c7 !important; border-color: #fde68a !important; }
         body.light-mode .bg-blue-900\/20 { background: rgba(37,99,235,0.05); }
         body.light-mode .border-blue-900\/30 { border-color: #e2e8f0; }
         body.light-mode .sidebar .text-white { color: #0f172a !important; }
+        body.light-mode .text-blue-400 { color: #1d4ed8 !important; }
+        .logo-icon { color: white !important; }
     </style>
 </head>
 <body class="h-full font-sans antialiased">
@@ -120,7 +137,7 @@
     <aside class="sidebar w-60 flex-shrink-0 flex flex-col" id="sidebar">
         {{-- Logo --}}
         <a href="{{ route('dashboard') }}" class="px-5 py-5 flex items-center gap-3 border-b border-blue-900/30 hover:bg-white/5 transition-colors group">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-lg shadow-lg group-hover:scale-110 transition-transform">🇮🇳</div>
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-lg shadow-lg group-hover:scale-110 transition-transform logo-icon">🇮🇳</div>
             <div>
                 <div class="font-bold text-white leading-tight">JanBhasha</div>
                 <div class="text-xs text-blue-400" style="font-family:'Noto Sans Devanagari',sans-serif;">जनभाषा</div>
