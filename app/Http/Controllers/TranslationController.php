@@ -39,7 +39,7 @@ class TranslationController extends Controller
     public function create(Request $request)
     {
         $org = $request->user()->organisation;
-        abort_if(!$org, 403);
+        abort_if(!$org, 403, 'You are not associated with any organisation.');
 
         return view('translations.create', compact('org'));
     }
@@ -80,7 +80,7 @@ class TranslationController extends Controller
     public function show(Request $request, Translation $translation)
     {
         $org = $request->user()->organisation;
-        abort_if($translation->organisation_id !== $org?->id, 403);
+        abort_if($translation->organisation_id !== $org?->id, 403, 'You are not associated with any organisation.');
 
         return view('translations.show', compact('translation'));
     }
@@ -91,7 +91,7 @@ class TranslationController extends Controller
     public function destroy(Request $request, Translation $translation)
     {
         $org = $request->user()->organisation;
-        abort_if($translation->organisation_id !== $org?->id, 403);
+        abort_if($translation->organisation_id !== $org?->id, 403, 'You are not associated with any organisation.');
 
         $translation->delete();
 
