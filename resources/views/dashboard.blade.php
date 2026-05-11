@@ -113,6 +113,11 @@
                             </span>
                         </td>
                         <td class="px-6 py-3 text-slate-500">{{ $t->created_at->diffForHumans() }}</td>
+                        <td class="px-6 py-3 whitespace-nowrap">
+                            <a href="{{ route('translations.show', $t) }}" class="text-blue-600 hover:text-blue-800 font-semibold">
+                                View →
+                            </a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
