@@ -14,8 +14,8 @@
                 <div class="text-2xl">📝</div>
                 <span class="badge badge-success">All time</span>
             </div>
-            <div class="text-3xl font-extrabold text-gray-900">{{ number_format($stats['total_translations']) }}</div>
-            <div class="text-sm text-gray-500 mt-1">Total Translations</div>
+            <div class="text-3xl font-extrabold text-white">{{ number_format($stats['total_translations']) }}</div>
+            <div class="text-sm text-slate-400 mt-1">Total Translations</div>
         </div>
 
         <div class="stat-card p-5">
@@ -23,8 +23,8 @@
                 <div class="text-2xl">✅</div>
                 <span class="badge badge-success">Completed</span>
             </div>
-            <div class="text-3xl font-extrabold text-gray-900">{{ number_format($stats['completed']) }}</div>
-            <div class="text-sm text-gray-500 mt-1">Successful</div>
+            <div class="text-3xl font-extrabold text-white">{{ number_format($stats['completed']) }}</div>
+            <div class="text-sm text-slate-400 mt-1">Successful</div>
         </div>
 
         <div class="stat-card p-5">
@@ -32,8 +32,8 @@
                 <div class="text-2xl">⚡</div>
                 <span class="badge badge-warning">Cached</span>
             </div>
-            <div class="text-3xl font-extrabold text-gray-900">{{ number_format($stats['cached_translations']) }}</div>
-            <div class="text-sm text-gray-500 mt-1">From Cache</div>
+            <div class="text-3xl font-extrabold text-white">{{ number_format($stats['cached_translations']) }}</div>
+            <div class="text-sm text-slate-400 mt-1">From Cache</div>
         </div>
 
         <div class="stat-card p-5">
@@ -41,8 +41,8 @@
                 <div class="text-2xl">❌</div>
                 <span class="badge badge-error">Failed</span>
             </div>
-            <div class="text-3xl font-extrabold text-gray-900">{{ number_format($stats['failed']) }}</div>
-            <div class="text-sm text-gray-500 mt-1">Failed</div>
+            <div class="text-3xl font-extrabold text-white">{{ number_format($stats['failed']) }}</div>
+            <div class="text-sm text-slate-400 mt-1">Failed</div>
         </div>
     </div>
 
@@ -50,8 +50,8 @@
     <div class="card p-6 mb-8 fade-in" style="animation-delay:.05s">
         <div class="flex items-center justify-between mb-3">
             <div>
-                <h3 class="font-semibold text-gray-800">Monthly Character Quota</h3>
-                <p class="text-sm text-gray-500 mt-0.5">{{ number_format($stats['this_month_chars']) }} / {{ number_format($stats['monthly_quota']) }} characters used this month</p>
+                <h3 class="font-semibold text-white">Monthly Character Quota</h3>
+                <p class="text-sm text-slate-400 mt-0.5">{{ number_format($stats['this_month_chars']) }} / {{ number_format($stats['monthly_quota']) }} characters used this month</p>
             </div>
             <div class="text-2xl font-bold" style="color: {{ $quotaColor }}">{{ $stats['quota_percent'] }}%</div>
         </div>
@@ -91,28 +91,28 @@
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead>
-                    <tr class="border-b border-gray-100">
-                        <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Source Text</th>
-                        <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Characters</th>
-                        <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
-                        <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Date</th>
+                    <tr class="border-b border-white/5">
+                        <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Source Text</th>
+                        <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Characters</th>
+                        <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Status</th>
+                        <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Date</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-50">
+                <tbody class="divide-y divide-white/5">
                     @foreach($recentActivity as $t)
                     <tr class="table-row">
                         <td class="px-6 py-3">
-                            <a href="{{ route('translations.show', $t) }}" class="text-gray-700 hover:text-blue-600 transition-colors">
+                            <a href="{{ route('translations.show', $t) }}" class="text-slate-200 hover:text-blue-500 transition-colors">
                                 {{ Str::limit($t->source_text, 60) }}
                             </a>
                         </td>
-                        <td class="px-6 py-3 text-gray-500">{{ number_format($t->characters) }}</td>
+                        <td class="px-6 py-3 text-slate-400">{{ number_format($t->characters) }}</td>
                         <td class="px-6 py-3">
                             <span class="badge badge-{{ $t->status === 'completed' ? 'success' : ($t->status === 'failed' ? 'error' : 'warning') }}">
                                 {{ ucfirst($t->status) }}
                             </span>
                         </td>
-                        <td class="px-6 py-3 text-gray-400">{{ $t->created_at->diffForHumans() }}</td>
+                        <td class="px-6 py-3 text-slate-500">{{ $t->created_at->diffForHumans() }}</td>
                     </tr>
                     @endforeach
                 </tbody>
