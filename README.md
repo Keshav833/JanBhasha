@@ -9,7 +9,7 @@ JanBhasha is an AI-powered **English → Hindi translation platform** built for 
 
 | Feature | Details |
 |---|---|
-| 🌐 **Translation** | English → Hindi via Google Translate or LibreTranslate |
+| 🌐 **Translation** | **Any-to-Any Indian Language** via Google Translate, LibreTranslate, or Mock (dev) |
 | 📖 **Custom Glossary** | Per-organisation term overrides; protects domain-specific words from being mangled by the API |
 | 📊 **Monthly Quota** | Configurable character limit per organisation with live usage tracking |
 | 🗂️ **Translation History** | Full audit log with status (`pending` / `completed` / `failed`), character count, provider, and cache flag |
@@ -18,6 +18,10 @@ JanBhasha is an AI-powered **English → Hindi translation platform** built for 
 | 🛡️ **Role-Based Access** | `super_admin`, `admin`, `translator` roles with middleware-level enforcement |
 | 🏢 **Multi-Tenancy** | Each organisation has its own users, glossary, translations, and API key |
 | 🔄 **API Key Rotation** | Super-admins can regenerate an organisation's API key at any time |
+| 🌌 **Futuristic UI** | Dark-themed glassmorphism 2026-style interface with animated gradients |
+| 💬 **AI Support Bot** | Floating AI assistant for real-time guidance and support |
+| 🗺️ **Guided Tour** | Interactive onboarding tour for first-time registered users |
+| 🛡️ **Secure Delete** | Mandatory password confirmation for account deletion |
 
 ---
 
@@ -26,8 +30,9 @@ JanBhasha is an AI-powered **English → Hindi translation platform** built for 
 | Layer | Technology |
 |---|---|
 | **Backend** | PHP 8.2 / Laravel 12 |
-| **Frontend** | Blade Templates + TailwindCSS v3 + Alpine.js |
-| **Translation Providers** | Google Translate API · LibreTranslate (self-hosted) |
+| **Frontend** | Blade Templates + TailwindCSS v4 + Alpine.js |
+| **Aesthetics** | **Futuristic Dark Mode** + Glassmorphism + Animated Gradients |
+| **AI Engine** | Google Cloud Translation API v2 · LibreTranslate · Free Google Bridge |
 | **Database** | SQLite (dev) · MySQL / PostgreSQL (prod) |
 | **Authentication** | Laravel Breeze (session) + Laravel Sanctum (API tokens) |
 | **Build Tooling** | Vite + `@tailwindcss/vite` |
@@ -94,8 +99,8 @@ DB_CONNECTION=sqlite
 # DB_USERNAME=root
 # DB_PASSWORD=
 
-# Translation provider: "google" or "libre"
-TRANSLATION_PROVIDER=google
+# Translation provider: "google", "libre", or "mock" (for local testing)
+TRANSLATION_PROVIDER=mock
 TRANSLATION_API_KEY=your_google_translate_api_key_here
 
 # Required only when TRANSLATION_PROVIDER=libre
@@ -308,4 +313,28 @@ Test coverage includes:
 ## 📄 License
 
 This project is developed for use by Indian Government Organisations.  
-© 2025 JanBhasha. All rights reserved.
+© 2026 JanBhasha. All rights reserved. Built with pride for Digital India.
+
+---
+
+## 🚀 What's New in the 2026 Overhaul
+
+The latest update transforms JanBhasha into a cutting-edge portal with several major upgrades:
+
+### 1. Futuristic 2026 UI/UX
+- **Dark-Glassmorphism Design**: A sleek, premium interface using modern transparency and blur effects.
+- **Animated Gradients**: Dynamic, smooth background transitions for a "living" application feel.
+- **Grid Overlays**: High-tech architectural aesthetics inspired by 2026 design trends.
+- **Custom Favicon**: New Ashoka Chakra branding integrated across the entire platform.
+
+### 2. Multi-Language Indian Support
+- **Any-to-Any Translation**: Beyond English-to-Hindi, the system now supports bidirectional translation between all 22+ official Indian languages (Bengali, Tamil, Telugu, Marathi, etc.).
+- **Swap Toggle**: A new interactive button to instantly reverse translation direction.
+
+### 3. AI-Powered Support & Onboarding
+- **Floating Chatbot**: A persistent 💬 help assistant that provides quick-replies and real-time guidance.
+- **Guided Onboarding Tour**: A 6-step interactive walkthrough that triggers automatically for new users (skippable).
+- **Tour Completion Tracking**: The system remembers if a user has completed the tour via the new `tour_completed` database flag.
+
+### 4. Enhanced Account Security
+- **Safe Account Deletion**: Deleting a profile now strictly requires the user's **current password** in a secure modal overlay, preventing accidental or unauthorized account removal.

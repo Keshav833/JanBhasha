@@ -6,6 +6,7 @@ use App\Models\Glossary;
 use App\Models\Organisation;
 use App\Services\GlossaryService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class GlossaryServiceTest extends TestCase
@@ -30,7 +31,7 @@ class GlossaryServiceTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_tokenizes_glossary_terms_before_translation(): void
     {
         Glossary::create([
@@ -51,7 +52,7 @@ class GlossaryServiceTest extends TestCase
         $this->assertCount(1, $map);
     }
 
-    /** @test */
+    #[Test]
     public function it_restores_tokens_with_hindi_terms(): void
     {
         Glossary::create([
@@ -73,7 +74,7 @@ class GlossaryServiceTest extends TestCase
         $this->assertStringNotContainsString('[[JBTK_', $detokenized);
     }
 
-    /** @test */
+    #[Test]
     public function it_handles_text_with_no_glossary_terms(): void
     {
         // No glossary entries for this org
