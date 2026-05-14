@@ -16,44 +16,51 @@
             @if(request()->hasAny(['search','status']))
             <a href="{{ route('translations.index') }}" class="btn-secondary text-sm">Clear</a>
             @endif
-            <div class="ml-auto text-sm text-gray-500">{{ $translations->total() }} record{{ $translations->total() !== 1 ? 's' : '' }}</div>
+            <div class="ml-auto text-sm text-slate-300">{{ $translations->total() }} record{{ $translations->total() !== 1 ? 's' : '' }}</div>
         </form>
 
         <div class="card overflow-hidden">
             @if($translations->isEmpty())
             <div class="px-6 py-16 text-center">
-                <div class="text-5xl mb-3 text-gray-400"><i class="fas fa-inbox"></i></div>
-                <p class="text-gray-500">No translations found.</p>
+                <div class="text-5xl mb-3">📭</div>
+                <p class="text-slate-300">No translations found.</p>
                 <a href="{{ route('translations.create') }}" class="mt-4 inline-block btn-primary text-sm">Start translating →</a>
             </div>
             @else
             <div class="overflow-x-auto">
                 <table class="w-full text-sm">
                     <thead>
-                        <tr class="border-b border-gray-100 bg-gray-50">
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Label / Source</th>
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Hindi Preview</th>
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Chars</th>
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Status</th>
-                            <th class="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wide">Date</th>
+                        <tr class="border-b border-white/5 bg-white/5">
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Label / Source</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Languages</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Preview</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Chars</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Status</th>
+                            <th class="text-left px-6 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">Date</th>
                             <th class="px-6 py-3"></th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-50">
+                    <tbody class="divide-y divide-white/5">
                         @foreach($translations as $t)
                         <tr class="table-row">
                             <td class="px-6 py-4">
                                 @if($t->source_label)
-                                <div class="text-xs font-semibold text-blue-600 mb-0.5">{{ $t->source_label }}</div>
+                                <div class="text-xs font-bold text-blue-600 mb-0.5">{{ $t->source_label }}</div>
                                 @endif
-                                <a href="{{ route('translations.show', $t) }}" class="text-gray-700 hover:text-blue-600 transition-colors">
+                                <a href="{{ route('translations.show', $t) }}" class="text-white font-semibold hover:text-blue-500 transition-colors">
                                     {{ Str::limit($t->source_text, 55) }}
                                 </a>
                             </td>
-                            <td class="px-6 py-4 text-gray-500" style="font-family:'Noto Sans Devanagari',sans-serif;">
-                                {{ $t->translated_text ? Str::limit($t->translated_text, 40) : '—' }}
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex flex-col text-xs">
+                                    <span class="text-slate-500">From: {{ \App\Services\TranslationService::getLanguageName($t->source_lang) }}</span>
+                                    <span class="text-blue-500 font-medium">To: {{ \App\Services\TranslationService::getLanguageName($t->target_lang) }}</span>
+                                </div>
                             </td>
-                            <td class="px-6 py-4 text-gray-500">{{ number_format($t->characters) }}</td>
+                            <td class="px-6 py-4 text-slate-300 font-medium" style="font-family:'Noto Sans Devanagari',sans-serif;">
+                                {{ $t->translated_text ? Str::limit($t->translated_text, 45) : '—' }}
+                            </td>
+                            <td class="px-6 py-4 text-slate-400 font-medium">{{ number_format($t->characters) }}</td>
                             <td class="px-6 py-4">
                                 <span class="badge badge-{{ $t->status === 'completed' ? 'success' : ($t->status === 'failed' ? 'error' : 'warning') }}">
                                     {{ ucfirst($t->status) }}
@@ -62,9 +69,11 @@
                                 <span class="badge ml-1" style="background:#e0e7ff;color:#4338ca;"><i class="fas fa-bolt"></i></span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 text-gray-400 whitespace-nowrap">{{ $t->created_at->format('d M Y') }}</td>
-                            <td class="px-6 py-4">
-                                <a href="{{ route('translations.show', $t) }}" class="text-blue-600 hover:text-blue-800 font-medium">View →</a>
+                            <td class="px-6 py-4 text-slate-500 whitespace-nowrap">{{ $t->created_at->format('d M Y') }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <a href="{{ route('translations.show', $t) }}" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center whitespace-nowrap">
+                                    View <span class="ml-1">→</span>
+                                </a>
                             </td>
                         </tr>
                         @endforeach

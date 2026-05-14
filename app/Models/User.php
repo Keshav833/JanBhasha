@@ -27,6 +27,7 @@ class User extends Authenticatable
         'password',
         'organisation_id',
         'role',
+        'tour_completed',
     ];
 
     /**
@@ -49,6 +50,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password'          => 'hashed',
+            'tour_completed'    => 'boolean',
         ];
     }
 

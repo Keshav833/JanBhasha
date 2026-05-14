@@ -11,7 +11,7 @@ class GlossaryController extends Controller
     public function index(Request $request)
     {
         $org = $request->user()->organisation;
-        abort_if(!$org, 403);
+        abort_if(!$org, 403, 'You are not associated with any organisation.');
 
         $glossaries = Glossary::where('organisation_id', $org->id)
             ->orderBy('source_term')
@@ -23,7 +23,7 @@ class GlossaryController extends Controller
     public function create(Request $request)
     {
         $org = $request->user()->organisation;
-        abort_if(!$org, 403);
+        abort_if(!$org, 403, 'You are not associated with any organisation.');
 
         return view('glossary.create', compact('org'));
     }
@@ -31,7 +31,7 @@ class GlossaryController extends Controller
     public function store(StoreGlossaryRequest $request)
     {
         $org = $request->user()->organisation;
-        abort_if(!$org, 403);
+        abort_if(!$org, 403, 'You are not associated with any organisation.');
 
         Glossary::create([
             ...$request->validated(),
@@ -45,14 +45,14 @@ class GlossaryController extends Controller
 
     public function edit(Request $request, Glossary $glossary)
     {
-        abort_if($glossary->organisation_id !== $request->user()->organisation?->id, 403);
+        abort_if($glossary->organisation_id !== $request->user()->organisation?->id, 403, 'You are not associated with any organisation.');
 
         return view('glossary.edit', compact('glossary'));
     }
 
     public function update(StoreGlossaryRequest $request, Glossary $glossary)
     {
-        abort_if($glossary->organisation_id !== $request->user()->organisation?->id, 403);
+        abort_if($glossary->organisation_id !== $request->user()->organisation?->id, 403, 'You are not associated with any organisation.');
 
         $glossary->update($request->validated());
 
@@ -63,7 +63,7 @@ class GlossaryController extends Controller
 
     public function destroy(Request $request, Glossary $glossary)
     {
-        abort_if($glossary->organisation_id !== $request->user()->organisation?->id, 403);
+        abort_if($glossary->organisation_id !== $request->user()->organisation?->id, 403, 'You are not associated with any organisation.');
 
         $glossary->delete();
 
