@@ -37,6 +37,10 @@
         <button type="submit" class="btn-primary mt-2">Sign In →</button>
     </form>
 
+    <p class="text-center text-sm text-gray-500 mt-4">
+        Don't have an account? <a href="{{ route('register') }}" class="text-blue-600 hover:underline font-medium">Create Account</a>
+    </p>
+
     <div class="mt-6 pt-5 border-t border-gray-100 text-center">
         <p class="text-xs text-gray-500">Demo credentials: <span class="font-mono text-blue-700">finance@janbhasha.in</span> / <span class="font-mono text-blue-700">password</span></p>
     </div>
