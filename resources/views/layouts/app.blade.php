@@ -155,20 +155,6 @@
         @endauth
 
         {{-- Nav --}}
-<<<<<<< HEAD
-        <nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">
-            <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <i class="fas fa-home"></i> Dashboard
-            </a>
-            <a href="{{ route('translations.create') }}" class="nav-link {{ request()->routeIs('translations.create') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <i class="fas fa-pen"></i> Translate
-            </a>
-            <a href="{{ route('translations.index') }}" class="nav-link {{ request()->routeIs('translations.index') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <i class="fas fa-clipboard"></i> History
-            </a>
-            <a href="{{ route('glossary.index') }}" class="nav-link {{ request()->routeIs('glossary.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <i class="fas fa-book"></i> Glossary
-=======
         <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto" id="main-nav">
             <a href="{{ route('dashboard') }}" id="nav-dashboard" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
                 <span>🏠</span> Dashboard
@@ -181,16 +167,10 @@
             </a>
             <a href="{{ route('glossary.index') }}" id="nav-glossary" class="nav-link {{ request()->routeIs('glossary.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
                 <span>📖</span> Glossary
->>>>>>> upstream/master
             </a>
 
             @auth
             @if(auth()->user()->isSuperAdmin())
-<<<<<<< HEAD
-            <div class="pt-3 pb-1 px-4 text-xs text-blue-300 uppercase tracking-wide font-medium"><i class="fas fa-bolt"></i> Admin</div>
-            <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
-                <i class="fas fa-sliders-h"></i> Admin Dashboard
-            </a>
             <div class="pt-4 pb-1 px-4 text-xs text-blue-500 uppercase tracking-wide font-semibold">Admin</div>
             <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
                 <span>🎛️</span> Admin Panel
@@ -200,6 +180,11 @@
             </a>
             <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }} flex items-center gap-3 px-4 py-2.5 text-sm">
                 <span>👥</span> Users
+            </a>
+            @endif
+            @endauth
+        </nav>
+
         {{-- User footer --}}
         @auth
         <div class="border-t border-blue-900/30 px-3 py-3">

@@ -40,15 +40,4 @@
     <p class="text-center text-sm text-gray-500 mt-4">
         Don't have an account? <a href="{{ route('register') }}" class="text-blue-600 hover:underline font-medium">Create Account</a>
     </p>
-
-    <div class="mt-6 pt-5 border-t border-gray-100 text-center">
-        <p class="text-xs text-gray-500 mb-4">Demo credentials: <span class="font-mono text-blue-700">finance@janbhasha.in</span> / <span class="font-mono text-blue-700">password</span></p>
-        
-        <p class="text-sm text-gray-600">
-            Don't have an account? 
-            <a href="{{ route('register') }}" class="font-semibold text-blue-600 hover:text-blue-700 hover:underline">
-                Create an account
-            </a>
-        </p>
-    </div>
 </x-guest-layout>
